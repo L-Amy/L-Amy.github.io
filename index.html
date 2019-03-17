@@ -52,31 +52,9 @@
 
 
   
-  
-  <div class="site-header-image">
-    <img id="originBg" width="100%" alt="Hike News" src>
-  </div>
-
-  <div id="header-blur" class="site-header-image blur" style="position: absolute; top:0; height: 207px; min-height: 207px; min-width: 100%;">
-    <img id="blurBg" width="100%" style="top: 96%" alt="Hike News" src>
-  </div>
-
-  <script>
-        var imgUrls = "css/images/pose01.jpg,https://source.unsplash.com/collection/954550/1920x1080,https://source.unsplash.com/collection/954550/1920x1081".split(",");
-        var random = Math.floor((Math.random() * imgUrls.length ));
-        if (imgUrls[random].startsWith('http') || imgUrls[random].indexOf('://') >= 0) {
-          document.getElementById("originBg").src=imgUrls[random];
-          document.getElementById("blurBg").src=imgUrls[random];
-        } else {
-          document.getElementById("originBg").src='/' + imgUrls[random];
-          document.getElementById("blurBg").src='/' + imgUrls[random];
-        }
-    </script>
 
 
-
-
-<header id="allheader" class="site-header" role="banner" style="width: 100%; position: absolute; top:0; background: rgba(255,255,255,.8);">
+<header id="allheader" class="site-header" role="banner">
   <div class="clearfix container">
       <div class="site-branding">
 
@@ -149,15 +127,78 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p><img src="https://raw.githubusercontent.com/L-Amy/L-Amy.github.io/master/css/images/hexo-logo.png" alt="HexoLogo"></p>
-<p><a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">Hexo</a>是一个快速，简介且高效的<code>博客框架</code>,Hexo使用<a href="https://daringfireball.net/projects/markdown/" target="_blank" rel="noopener">Markdown</a>解析文章，并生成静态页面。</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p><a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">Hexo</a>是一个快速，简介且高效的<strong>博客框架</strong>,Hexo使用<a href="https://daringfireball.net/projects/markdown/" target="_blank" rel="noopener">Markdown</a>解析文章，并生成静态页面。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>需要的技术工具</p>
+<ul>
+<li>Node.js</li>
+<li>Git</li>
+</ul>
+<p>上述安装成功后，接下来安装<strong>Hexo</strong>,见如下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<p>安装完成后执行以下命令,Hexo会在指定文件夹下新建所需文件,在您的博客文件下，右键，打开git bash，初始化博客。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init</span><br></pre></td></tr></table></figure>
+<p>最后生成如下文件夹</p>
+<p><img src="https://raw.githubusercontent.com/L-Amy/L-Amy.github.io/master/css/images/HexoDir.png" alt="Hexo Dirtory"></p>
+<p>上述只列出个别文件夹名，_posts内为我们所写的所有文档，_theme 存放从Git clone下来的主题，_config配置网站,package.json应用程序的信息,public是后面生成时出现的，别着急哈!!! :smile:</p>
+<h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><p>在<a href="https://hexo.io/themes/" target="_blank" rel="noopener">这里</a>找到你所喜欢的主题,然后根据主题路径克隆下来放在上述theme文件夹下，例如nexT主题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/iissnan/hexo-theme-nextthemes/next</span><br></pre></td></tr></table></figure>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>_config.yml内配置</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>title</td>
+<td style="text-align:left">网站标题,例如，我的第一个博客</td>
+</tr>
+<tr>
+<td>subtitle</td>
+<td style="text-align:left">网站副标题</td>
+</tr>
+<tr>
+<td>description</td>
+<td style="text-align:left">网站描述，主要用于SEO，告诉搜索引擎一个关于您站点的简单描述</td>
+</tr>
+<tr>
+<td>author</td>
+<td style="text-align:left">您的名字</td>
+</tr>
+<tr>
+<td>language</td>
+<td style="text-align:left">网站使用的语言</td>
+</tr>
+<tr>
+<td>timeZone</td>
+<td style="text-align:left">网站时区，Hexo默认使用您电脑的时区</td>
+</tr>
+<tr>
+<td>theme</td>
+<td style="text-align:left">主题名称，例如nexT</td>
+</tr>
+</tbody>
+</table>
+<p>现在可以运行你的网站了，​ 加油哈 ！！！:dog:</p>
+<p>先生成，这时会新增上面提到的public文件夹</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g</span><br></pre></td></tr></table></figure>
+<p>然后运行，就可以在浏览器看到初始博客了，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo s</span><br></pre></td></tr></table></figure>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>在你的github上新建respository</p>
+<p><img src="https://github.com/L-Amy/L-Amy.github.io/blob/master/css/images/new_respository.png" alt="new_respository"></p>
+<p>配置路径,如图，repo值为你建的仓库的路径。</p>
+<p><img src="https://github.com/L-Amy/L-Amy.github.io/blob/master/css/images/url.png" alt="url"></p>
+<p>安装<a href="https://github.com/hexojs/hexo-deployer-git" target="_blank" rel="noopener">hexo-deployer-git</a>自动部署发布工具，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$  npm install hexo-deployer-git  --save</span><br></pre></td></tr></table></figure>
+<p>然后依次输入以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo g</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
+<p>发布完成!!! :smile:</p>
+<h2 id="写作"><a href="#写作" class="headerlink" title="写作"></a>写作</h2><p>新建文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="layout-布局"><a href="#layout-布局" class="headerlink" title="layout 布局"></a>layout 布局</h3><p>默认3种布局，post，page，draft，分别对应不同的布局。<br>布局|路径|<br>—:|:—<br>post|source/_posts<br>page|source<br>draft|source/_drafts<br>写完生成发布就OK了。</p>
 
       
     </div>
@@ -358,9 +399,6 @@
 
 
     <!-- headerblur min height -->
-    
-      var headerblur = document.getElementById("header-blur");
-      headerblur.style.minHeight = window.getComputedStyle(document.getElementById("allheader"), null).height;
     
     
 </script>
