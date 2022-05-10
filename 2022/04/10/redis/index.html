@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>非关系型数据库Redis | “Amy的博客”</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="Redis" />
+  
+  
+  
+  
+  <meta name="description" content="Redis是一个由 Salvatore Sanfilippo 写的 key-value 存储系统，是非关系型数据库。 它支持丰富的数据类型，以内存作为数据存储介质，所以读写数据的效率极高。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="非关系型数据库Redis">
+<meta property="og:url" content="http://example.com/2022/04/10/redis/index.html">
+<meta property="og:site_name" content="“Amy的博客”">
+<meta property="og:description" content="Redis是一个由 Salvatore Sanfilippo 写的 key-value 存储系统，是非关系型数据库。 它支持丰富的数据类型，以内存作为数据存储介质，所以读写数据的效率极高。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/04/10/redis/images/redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png">
+<meta property="og:image" content="http://example.com/.com//images%5Cstring.PNG">
+<meta property="og:image" content="http://example.com/.com//images%5Cstring.PNG">
+<meta property="og:image" content="http://example.com/.com//images%5Cset.PNG">
+<meta property="og:image" content="http://example.com/.com//images%5Chash1.PNG">
+<meta property="og:image" content="http://example.com/.com//images%5Chash2.PNG">
+<meta property="og:image" content="http://example.com/.com//images%5CZset.PNG">
+<meta property="article:published_time" content="2022-04-10T09:01:39.000Z">
+<meta property="article:modified_time" content="2022-05-10T10:23:51.568Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Redis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/04/10/redis/images/redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png">
+  
+    <link rel="alternate" href="/atom.xml" title="“Amy的博客”" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+    
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+  <link rel="stylesheet" href="/css/fashion.css" >
+  <link rel="stylesheet" href="/css/glyphs.css" >
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" rel="home" >
+                <img style="margin-bottom: 10px;"  width="124px" height="124px" alt="Hike News" src=" /css/images/mylogo.jpg">
+              </a>
+            
+          </h1>
+          
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="/"> <a class="" href="/">Home</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="/archives"> <a class="" href="/archives">Archives</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="/categories"> <a class="" href="/categories">Categories</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="/tags"> <a class="" href="/tags">Tags</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="/about"> <a class="" href="/about">About</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-redis" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      非关系型数据库Redis
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2022/04/10/redis/" class="article-date">
+	  <time datetime="2022-04-10T09:01:39.000Z" itemprop="datePublished">April 10, 2022</time>
+	</a>
+
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+ 
+      
+	<span id="busuanzi_container_page_pv">
+	  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+	</span>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p> Redis是一个由 Salvatore Sanfilippo 写的 key-value 存储系统，是非关系型数据库。<br> 它支持丰富的数据类型，以内存作为数据存储介质，所以读写数据的效率极高。</p>
+ <span id="more"></span>
+
+<h3 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis-cli <span class="comment">// 本地连接，默认-h为localhost, -p默认为3306</span></span><br><span class="line">redis-cli -h host -p port -a password  <span class="comment">//远程连接</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>从上面的连接命令来看redis中没有账号的说法</li>
+<li>redis中没有表的概念</li>
+<li>redis中的数据是以<strong>键值对</strong>的格式进行存储的</li>
+<li>redis中的数据是存储到<strong>内存</strong>中的</li>
+<li>redis在正常关闭或者重启（例如在linux服务器上systemctl命令关闭或者重启redis）的时候，会提前把数据（不包含密码）保存到一个文件中，然后当我们下次启动redis时候，再从文件中，把数据加载到内存中，非正常关闭Redis服务时（例如断电），数据丢失不会保存</li>
+<li>内存的读写速度是硬盘的300倍以上</li>
+<li>redis中的数据操作的速度是MySQL的300倍以上</li>
+<li>redis一般用于软件的缓存数据进行存储</li>
+</ul>
+<h3 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h3><p><img src="images/redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.png"></p>
+<table><tr><td><strong>String字符串</strong></td> <td>可以是字符串、整数或浮点数</td> <td>对整个字符串或字符串的一部分进行操作；对整数或浮点数进行自增或自减操作；</td></tr> <tr><td><strong>List列表</strong></td> <td>一个链表，链表上的每个节点都包含一个字符串</td> <td>对链表的两端进行push和pop操作，读取单个或多个元素；根据值查找或删除元素；</td></tr> <tr><td><strong>Set集合</strong></td> <td>包含字符串的无序集合</td> <td>字符串的集合，包含基础的方法有看是否存在添加、获取、删除；还包含计算交集、并集、差集等</td></tr> <tr><td><strong>Hash散列</strong></td> <td>包含键值对的无序散列表</td> <td>包含方法有添加、获取、删除单个元素,特别适合存储对象</td></tr> <tr><td><strong>Zset有序集合</strong></td> <td>和散列一样，用于存储键值对</td> <td>字符串成员与浮点数分数之间的有序映射；元素的排列顺序由分数的大小决定；包含方法有添加、获取、删除单个元素以及根据分值范围或成员来获取元素</td></tr></table>
+
+
+
+<h3 id="数据库的操作"><a href="#数据库的操作" class="headerlink" title="数据库的操作"></a>数据库的操作</h3><h4 id="String字符串"><a href="#String字符串" class="headerlink" title="String字符串"></a>String字符串</h4><table><thead><tr><th>命令</th> <th>简述</th> <th>使用</th></tr></thead> <tbody><tr><td>GET</td> <td>获取存储在给定键中的值</td> <td>GET key_Name</td></tr> <tr><td>SET</td> <td>设置存储在给定键中的值</td> <td>SET key_name value</td></tr> <tr><td>DEL</td> <td>删除存储在给定键中的值</td> <td>DEL key_name</td></tr> <tr><td>INCR</td> <td>将键存储的值加1</td> <td>INCR key</td></tr> <tr><td>DECR</td> <td>将键存储的值减1</td> <td>DECR key</td></tr> <tr><td>INCRBY</td> <td>将键存储的值加上整数</td> <td>INCRBY key amount</td></tr> <tr><td>DECRBY</td> <td>将键存储的值减去整数</td> <td>DECRBY key amount</td></tr></tbody></table>
+
+<p><img src="/.com//images%5Cstring.PNG"></p>
+<p><strong>实战场景</strong></p>
+<blockquote>
+<p><strong>缓存</strong>： 经典使用场景，把常用信息，字符串，图片或者视频等信息放到redis中，redis作为缓存层，mysql做持久化层，降低mysql的读写压力。</p>
+<p><strong>计数器</strong>：redis是单线程模型，一个命令执行完才会执行下一个，同时数据可以一步落地到其他的数据源。</p>
+<p><strong>session</strong>：常见方案spring session + redis实现session共享，</p>
+</blockquote>
+<h4 id="List列表"><a href="#List列表" class="headerlink" title="List列表"></a>List列表</h4><p>Redis中的List其实就是链表（Redis用双端链表实现List），相同的元素可以充分出现</p>
+<table><thead><tr><th>命令</th> <th>简述</th> <th>使用</th></tr></thead> <tbody><tr><td>RPUSH</td> <td>将给定值推入到列表右端</td> <td>RPUSH key value</td></tr> <tr><td>LPUSH</td> <td>将给定值推入到列表左端</td> <td>LPUSH key value</td></tr> <tr><td>RPOP</td> <td>从列表的右端弹出一个值，并返回被弹出的值</td> <td>RPOP key</td></tr> <tr><td>LPOP</td> <td>从列表的左端弹出一个值，并返回被弹出的值</td> <td>LPOP key</td></tr> <tr><td>LRANGE</td> <td>获取列表在给定范围上的所有值</td> <td>LRANGE key 0 -1</td></tr> <tr><td>LINDEX</td> <td>通过索引获取列表中的元素。你也可以使用负数下标，以 -1 表示列表的最后一个元素， -2 表示列表的倒数第二个元素，以此类推。</td> <td>LINEX key index</td></tr></tbody></table>
+
+<p><strong>使用列表的技巧</strong></p>
+<ul>
+<li>lpush+lpop=Stack(栈)</li>
+<li>lpush+rpop=Queue（队列）</li>
+<li>lpush+ltrim=Capped Collection（有限集合）</li>
+<li>lpush+brpop=Message Queue（消息队列）</li>
+</ul>
+<p><img src="/.com//images%5Cstring.PNG"></p>
+<p><strong>实战场景</strong></p>
+<blockquote>
+<p><strong>微博TimeLine</strong>: 有人发布微博，用lpush加入时间轴，展示新的列表信息。</p>
+<p>**消息队</p>
+</blockquote>
+<h4 id="Set集合"><a href="#Set集合" class="headerlink" title="Set集合"></a>Set集合</h4><p>Redis 的 Set 是 String 类型的无序集合。集合成员是唯一的，这就意味着集合中不能出现重复的数据。</p>
+<table><thead><tr><th>命令</th> <th>简述</th> <th>使用</th></tr></thead> <tbody><tr><td>SADD</td> <td>向集合添加一个或多个成员</td> <td>SADD key value</td></tr> <tr><td>SCARD</td> <td>获取集合的成员数</td> <td>SCARD key</td></tr> <tr><td>SMEMBERS</td> <td>返回集合中的所有成员</td> <td>SMEMBERS key</td></tr> <tr><td>SISMEMBER</td> <td>判断 member 元素是否是集合 key 的成员</td> <td>SISMEMBER key member</td></tr></tbody></table>
+
+<p><img src="/.com//images%5Cset.PNG"></p>
+<p><strong>实战场景</strong></p>
+<blockquote>
+<p><strong>标签</strong>（tag）,给用户添加标签，或者用户给消息添加标签，这样有同一标签或者类似标签的可以给推荐关注的事或者关注的人。</p>
+<p><strong>点赞，或点踩，收藏等</strong>，可以放到set中实现</p>
+</blockquote>
+<h4 id="Hash散列-哈希"><a href="#Hash散列-哈希" class="headerlink" title="Hash散列/哈希"></a>Hash散列/哈希</h4><p>Redis hash 是一个 string 类型的 field（字段） 和 value（值） 的映射表，hash 特别适合用于存储对象。</p>
+<p><img src="/.com//images%5Chash1.PNG"></p>
+<table><thead><tr><th>命令</th> <th>简述</th> <th>使用</th></tr></thead> <tbody><tr><td>HSET</td> <td>添加键值对</td> <td>HSET hash-key sub-key1 value1</td></tr> <tr><td>HGET</td> <td>获取指定散列键的值</td> <td>HGET hash-key key1</td></tr> <tr><td>HGETALL</td> <td>获取散列中包含的所有键值对</td> <td>HGETALL hash-key</td></tr> <tr><td>HDEL</td> <td>如果给定键存在于散列中，那么就移除这个键</td> <td>HDEL hash-key sub-key1</td></tr></tbody></table>
+
+<p><img src="/.com//images%5Chash2.PNG"></p>
+<p><strong>实战场景</strong></p>
+<blockquote>
+<p><strong>缓存</strong>： 能直观，相比string更节省空间，的维护缓存信息，如用户信息，视频信息等。</p>
+</blockquote>
+<h4 id="Zset-有序集合"><a href="#Zset-有序集合" class="headerlink" title="Zset 有序集合"></a>Zset 有序集合</h4><p>Redis 有序集合和集合一样也是 string 类型元素的集合,且不允许重复的成员。不同的是每个元素都会关联一个 double 类型的分数。redis 正是通过分数来为集合中的成员进行从小到大的排序。</p>
+<table><thead><tr><th>命令</th> <th>简述</th> <th>使用</th></tr></thead> <tbody><tr><td>ZADD</td> <td>将一个带有给定分值的成员添加到有序集合里面</td> <td>ZADD zset-key 178 member1</td></tr> <tr><td>ZRANGE</td> <td>根据元素在有序集合中所处的位置，从有序集合中获取多个元素</td> <td>ZRANGE zset-key 0-1 withccores</td></tr> <tr><td>ZREM</td> <td>如果给定元素成员存在于有序集合中，那么就移除这个元素</td> <td>ZREM zset-key member1</td></tr></tbody></table>
+
+<p>**Keys * **：查看所有Key</p>
+<p><img src="/.com//images%5CZset.PNG"></p>
+<p><strong>实战场景</strong></p>
+<blockquote>
+<p><strong>排行榜</strong>：有序集合经典使用场景。例如小说视频等网站需要对用户上传的小说视频做排行榜，榜单可以按照用户关注数，更新时间，字数等打分，做排行</p>
+</blockquote>
+<p><strong>保存</strong></p>
+<p>save</p>
+<p><strong>安全</strong></p>
+<p>设置密码：config set requirepass 密码 （这里的密码上临时的密码，重启redis后会消失）</p>
+<p>认证：auth 密码</p>
+<h3 id="redis的设置，"><a href="#redis的设置，" class="headerlink" title="redis的设置，"></a>redis的设置，</h3><ul>
+<li><p>redis配置文件：/etc/redis.conf</p>
+</li>
+<li><p>bind: 绑定IP，作用和MySQL的账号设置中的主机作用一样，限制那个IP来连接redis，默认本机IP127.0.0.1，放开0.0.0.0</p>
+</li>
+<li><p>port：端口号，默认6379</p>
+</li>
+<li><p>dir：保存的数据文件的路径</p>
+</li>
+<li><p>dbfilename：保存数据的文件的名字</p>
+</li>
+<li><p>requirepass：密码</p>
+</li>
+</ul>
+<p>以上配置修改后，需要重启redis</p>
+<p><strong>参考文档</strong>：</p>
+<p><a target="_blank" rel="noopener" href="https://pdai.tech/md/db/nosql-redis/db-redis-data-types.html">https://pdai.tech/md/db/nosql-redis/db-redis-data-types.html</a></p>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/" rel="tag">Redis</a></li></ul>
+
+      
+        
+	<div id="comment">
+	
+	<!-- 多说评论框 start -->
+	 <div class="ds-thread" data-thread-key="/2022/04/10/redis/" data-title="非关系型数据库Redis" data-url="http://example.com/2022/04/10/redis/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"iTimeTraveler"};
+	  (function() {
+	    var ds = document.createElement('script');
+	    ds.type = 'text/javascript';ds.async = true;
+	    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	    ds.charset = 'UTF-8';
+	    (document.getElementsByTagName('head')[0] 
+	     || document.getElementsByTagName('body')[0]).appendChild(ds);
+	  })();
+	  </script>
+	<!-- 多说公共JS代码 end -->
+	
+	</div>
+	
+<link rel="stylesheet" href="/css/comment.css">
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/04/19/HTTP%E5%92%8CHTTPS/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          浅识HTTP和HTTPS
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/04/10/mysql/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">关系型数据库MySQL</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.</span> <span class="nav-text">连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">数据格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">数据库的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#String%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">3.1.</span> <span class="nav-text">String字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#List%E5%88%97%E8%A1%A8"><span class="nav-number">3.2.</span> <span class="nav-text">List列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Set%E9%9B%86%E5%90%88"><span class="nav-number">3.3.</span> <span class="nav-text">Set集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hash%E6%95%A3%E5%88%97-%E5%93%88%E5%B8%8C"><span class="nav-number">3.4.</span> <span class="nav-text">Hash散列&#x2F;哈希</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Zset-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88"><span class="nav-number">3.5.</span> <span class="nav-text">Zset 有序集合</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis%E7%9A%84%E8%AE%BE%E7%BD%AE%EF%BC%8C"><span class="nav-number">4.</span> <span class="nav-text">redis的设置，</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2022 “Amy的博客” All Rights Reserved.
+        
+            <span id="busuanzi_container_site_uv">
+              本站访客数<span id="busuanzi_value_site_uv"></span>人次  
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+            </span>
+          
+      </div>
+      <div class="site-credit">
+        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/bootstrap.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

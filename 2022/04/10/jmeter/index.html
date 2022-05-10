@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>性能测试工具Jmeter | “Amy的博客”</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="Jmeter" />
+  
+  
+  
+  
+  <meta name="description" content="Apache JMeter是用来负载功能测试和性能测试的纯Java开源软件, 可以使用JMeter对web应用或各种各样服务的性能进行分析和度量, JMeter最初被设计用于Web应用或FTP应用测试，现在扩展到功能测试、数据库服务器测试等。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="性能测试工具Jmeter">
+<meta property="og:url" content="http://example.com/2022/04/10/jmeter/index.html">
+<meta property="og:site_name" content="“Amy的博客”">
+<meta property="og:description" content="Apache JMeter是用来负载功能测试和性能测试的纯Java开源软件, 可以使用JMeter对web应用或各种各样服务的性能进行分析和度量, JMeter最初被设计用于Web应用或FTP应用测试，现在扩展到功能测试、数据库服务器测试等。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/1.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/2.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/3.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/4.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/5.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/6.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/7.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/8.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/9.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/10.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/11.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/12.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/13.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/14.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/15.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/16.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/17.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/18.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/19.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/20.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/21.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/22.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/23.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/24.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/25.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/26.png">
+<meta property="og:image" content="http://example.com/2022/04/10/jmeter/images/27.png">
+<meta property="article:published_time" content="2022-04-10T06:40:43.000Z">
+<meta property="article:modified_time" content="2022-05-10T08:54:24.098Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Jmeter">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/04/10/jmeter/images/1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="“Amy的博客”" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+    
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+  <link rel="stylesheet" href="/css/fashion.css" >
+  <link rel="stylesheet" href="/css/glyphs.css" >
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" rel="home" >
+                <img style="margin-bottom: 10px;"  width="124px" height="124px" alt="Hike News" src=" /css/images/mylogo.jpg">
+              </a>
+            
+          </h1>
+          
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="/"> <a class="" href="/">Home</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="/archives"> <a class="" href="/archives">Archives</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="/categories"> <a class="" href="/categories">Categories</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="/tags"> <a class="" href="/tags">Tags</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="/about"> <a class="" href="/about">About</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-jmeter" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      性能测试工具Jmeter
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2022/04/10/jmeter/" class="article-date">
+	  <time datetime="2022-04-10T06:40:43.000Z" itemprop="datePublished">April 10, 2022</time>
+	</a>
+
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7/">测试工具</a>
+ 
+      
+	<span id="busuanzi_container_page_pv">
+	  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+	</span>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Apache JMeter是用来负载功能测试和性能测试的纯Java开源软件, 可以使用JMeter对web应用或各种各样服务的性能进行分析和度量, JMeter最初被设计用于Web应用或FTP应用测试，现在扩展到功能测试、数据库服务器测试等。</p>
+<span id="more"></span>
+
+<p>常见的性能测试工具有LoadRunner,Jmeter，是Java开发的，都是免费开源的，</p>
+<p>运行环境Java，所以安装Jmeter前必须要要安装Java</p>
+<!--more-->
+
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>进入Jmeter项目文件的bin目录，双击jmeter.bat启动</p>
+<p>打开时有两个窗口，Jmeter的命令窗口和Jmeter的图形操作界面，不可以关闭命令窗口</p>
+<h2 id="根目录说明"><a href="#根目录说明" class="headerlink" title="根目录说明"></a>根目录说明</h2><ul>
+<li><strong>backup目录</strong> ：脚本备份目录，里面的文件都是以.jmx后缀结尾</li>
+<li><strong>bin目录</strong>：可执行文件<ul>
+<li>Jmeter.bat: 是启动jmeter的主脚本</li>
+<li>Jmeter-server.bar:是用来实现联机负载</li>
+<li>Jmeter.properties: 是jmeter主要的配置文件，查过80%的配置项都是通过这个文件实现（PS：修改配置文件后，要重启Jmeter才能生效）<ul>
+<li>在<code>#language=en</code>下面插入一行<code>language=zh_CN</code> 重启Jmeter后界面默认显示中文</li>
+<li>在<code>\#sampleresult.default.encoding=ISO-8859-1</code>下插入一行<code>sampleresult.default.encoding=utf-8</code>,解决Jmeter中控制台无法识别中文导致乱码的问题。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="编写项目测试脚本"><a href="#编写项目测试脚本" class="headerlink" title="编写项目测试脚本"></a>编写项目测试脚本</h2><h3 id="Jmeter做接口测试"><a href="#Jmeter做接口测试" class="headerlink" title="Jmeter做接口测试"></a>Jmeter做接口测试</h3><ol>
+<li>业务流程串联测试</li>
+<li>单个接口测试</li>
+</ol>
+<h3 id="添加线程组"><a href="#添加线程组" class="headerlink" title="添加线程组"></a>添加线程组</h3><ol>
+<li>测试用例，性能测试中也叫场景，一个测试计划中可以包含多个线程组</li>
+</ol>
+<p><img src="images/1.png"></p>
+<ol>
+<li>配置线程组参数</li>
+</ol>
+<p><img src="images/2.png"></p>
+<p><strong>线程数</strong>：虚拟用户数</p>
+<p><strong>Ramp-Up时间（秒）</strong>：设置的虚拟用户数需要多长时间全部启动，如果线程数为<code>100</code>，准备时长为<code>5</code>，那么需要<code>5</code>秒钟启动<code>100</code>个线程，也就是每秒钟启动<code>20</code>个线程。 相当于每秒模拟<code>20</code>个用户进行访问，设置为零我理解为并发访问。</p>
+<p><strong>循环次数</strong>：如果线程数为<code>100</code>，循环次数为<code>100</code>。那么总请求数为<code>100*100=10000</code> 。如果勾选了“永远”，那么所有线程会一直发送请求，直到选择停止运行脚本。</p>
+<h3 id="添加测试接口"><a href="#添加测试接口" class="headerlink" title="添加测试接口"></a>添加测试接口</h3><p><img src="images/3.png"></p>
+<p><img src="images/4.png"></p>
+<p><strong>协议</strong>：向目标服务器发送HTTP请求协议，可以是<code>HTTP</code>或<code>HTTPS</code>，默认为<code>HTTP</code>。</p>
+<p><strong>服务器名称或IP</strong> ：<code>HTTP</code>请求发送的目标服务器名称或<code>IP</code>。</p>
+<p><strong>端口号</strong>：目标服务器的端口号，默认值为80</p>
+<p><strong>方法</strong>：发送<code>HTTP</code>请求的方法，可用方法包括<code>GET</code>、<code>POST</code>等。</p>
+<p><strong>路径</strong>：目标<code>URL</code>路径（<code>URL</code>中去掉服务器地址、端口及参数后剩余部分）。</p>
+<p><strong>内容编码</strong>：编码方式，默认为<code>ISO-8859-1</code>编码，</p>
+<p><strong>参数</strong>：同请求一起发送参数 ，在请求中发送的<code>URL</code>参数，例如GET请求时，有时会需要填写</p>
+<p><strong>消息体数据</strong>：一般是POST请求中，请求参数写在这里（Json格式）</p>
+<h3 id="添加查看结果数"><a href="#添加查看结果数" class="headerlink" title="添加查看结果数"></a>添加查看结果数</h3><p><img src="images/5.png"></p>
+<p>查看结果</p>
+<ul>
+<li>取样器结果，http状态码</li>
+<li>请求：请求类型/地址/参数/请求头</li>
+<li>响应数据：服务器返回的数据，有搜索功能，可以搜索你需要查看的返回值</li>
+<li>根据结果树排查出错原因<ul>
+<li>观察脚本是否报错</li>
+<li>查看状态码判断问题</li>
+<li>请求信息是否正确</li>
+<li>返回值查看结果</li>
+</ul>
+</li>
+</ul>
+<h3 id="HTTP信息头管理"><a href="#HTTP信息头管理" class="headerlink" title="HTTP信息头管理"></a>HTTP信息头管理</h3><p><img src="images/6.png"></p>
+<p><img src="images/7.png"></p>
+<h3 id="Json断言"><a href="#Json断言" class="headerlink" title="Json断言"></a>Json断言</h3><ol>
+<li><p>断言：实际结果和预期结果做对比</p>
+<p><strong>断言原理</strong> ：工具自动判断http状态码，如果状态码&gt;400,直接报错，如果http状态码正常，再根据自定义的断言进行判断。</p>
+</li>
+</ol>
+<p><img src="images/8.png"></p>
+<ol>
+<li>配置Json断言具体信息</li>
+</ol>
+<p><img src="images/9.png"></p>
+<p><strong>$</strong> 代表Json对象，例如$.code, </p>
+<p>Expected Value: 预期结果，例如1， 这里的意思就是，预期后台反馈Json对象中Code值为1.</p>
+<ol>
+<li><p>断言结果</p>
+<p><img src="images/10.png"></p>
+<p>下列是预期结果和实际结果一致</p>
+</li>
+</ol>
+<p><img src="images/11.png"></p>
+<p>下列是预期结果和实际结果不一致</p>
+<p><img src="images/12.png"></p>
+<h3 id="关联"><a href="#关联" class="headerlink" title="关联"></a>关联</h3><p>上一个接口的返回值给下一个接口用</p>
+<h4 id="Json提取器"><a href="#Json提取器" class="headerlink" title="Json提取器"></a>Json提取器</h4><p><img src="images/13.png"></p>
+<p><img src="images/14.png"></p>
+<p>在第二个接口中引用变量gtoken</p>
+<p><img src="images/15.png"></p>
+<h3 id="参数化"><a href="#参数化" class="headerlink" title="参数化"></a>参数化</h3><ol>
+<li><p>准备好参数文件，一般以txt结尾</p>
+<p><img src="images/16.png"></p>
+</li>
+<li><p>添加配置原件-CSV数据文件设置</p>
+</li>
+</ol>
+<p><img src="images/17.png"></p>
+<p><img src="images/18.png"></p>
+<ol>
+<li>引用变量</li>
+</ol>
+<p><img src="images/19.png"></p>
+<p><img src="images/20.png"></p>
+<ol>
+<li>运行结束后的结果如下，产生了三个测试用例。</li>
+</ol>
+<p><img src="images/21.png"></p>
+<h3 id="添加聚合报告"><a href="#添加聚合报告" class="headerlink" title="添加聚合报告"></a>添加聚合报告</h3><p><img src="images/22.png"></p>
+<h2 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h2><h3 id="聚合报告"><a href="#聚合报告" class="headerlink" title="聚合报告"></a>聚合报告</h3><ol>
+<li><p>为了测试出效果，我这里模拟30个用户并发访问获取数据，循环5次，线程组数据修改如下：</p>
+<p><img src="images/23.png"></p>
+</li>
+<li><p>分析测试报告</p>
+</li>
+</ol>
+<p><img src="images/24.png"></p>
+<ol>
+<li><p>聚合报告参数详解</p>
+<p>**样本(Samples)**：请求数——表示这次测试中一共发出了多少个请求，我这里模拟了<code>30</code>个用户循环<code>5</code>次也就为<code>30*5=150</code>。</p>
+<p><strong>平均值(Average)<strong>：平均响应时间(单位:</strong><code>ms</code></strong>)。默认是单个<code>Request</code>的平均响应时间，</p>
+<p>**中位数(Median)**：也就是 <code>50％</code> 用户的响应时间。</p>
+<p><strong>95% Line</strong>：<code>95％</code> 用户的响应时间，建议取这个值。</p>
+<p>**最小值(Min)**：最小响应时间。</p>
+<p>**最大值(Max)**：最大响应时间。</p>
+<p><strong>失败率（Error）</strong>：错误率——错误请求数/请求总数。</p>
+<p>**吞吐量(Throughput)**：服务器每秒处理的请求量，相同条件下吞吐量越大，服务器的性能越强，</p>
+<p><strong>接收 KB/Sec</strong>：每秒从服务器端接收到的数据量，</p>
+<p><strong>发送 KB/Sec</strong>：每秒向服务器发送的数据量，</p>
+<h4 id="性能指标"><a href="#性能指标" class="headerlink" title="性能指标"></a>性能指标</h4><ul>
+<li>响应时间：建议取95%Line；</li>
+<li>失败率（Error）</li>
+<li>吞吐量</li>
+<li>服务器的CPU使用率，这样要在服务器上或者服务器管理端去看</li>
+</ul>
+<h4 id="性能指标量化"><a href="#性能指标量化" class="headerlink" title="性能指标量化"></a>性能指标量化</h4><p>响应时间：每个行业有不同的要求，每个项目也有不同的标准，如果没有任何参考，可以以258原则参考，2s-优秀，2~5s-良，5-8s-可接受，超过8s，不接受</p>
+<p>前台标准：一般互联网行业，2000qps下，失败率不超过0.05%，95%line为不超过300ms可接受；非互联网行业，2000qps下，失败率不超过0.1%，95%line为不超过1.5s可接受</p>
+</li>
+</ol>
+<h3 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h3><ul>
+<li>并发用户数，服务器同时刻接收到的用户量</li>
+<li>并发请求数（QPS）：服务器同时刻接收到的请求数量</li>
+</ul>
+<h4 id="设置并发"><a href="#设置并发" class="headerlink" title="设置并发"></a>设置并发</h4><ol>
+<li>设置线程数</li>
+</ol>
+<p><img src="images/25.png"></p>
+<p>​      这里设置的300个用户数，10秒内启动完这些用户（也就是20秒内用户数从0增加为300，每秒增加30个用户），持续5分钟（这里前    10秒用户数是一直递增的，10秒后用户数保持300，）</p>
+<ol>
+<li>集合点（瞬时并发比较高的业务，时间短，例如双11）</li>
+</ol>
+<p><img src="images/26.png"></p>
+<p><img src="images/27.png"></p>
+<p>拦截50个人一组一起并发调用（也就是等到用户凑够50个人时，才一起同时刻调用），如果等了3000ms（3s）没有凑高50人，那就有多少人，用多少，不强求。</p>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7/">测试工具</a>
+
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jmeter/" rel="tag">Jmeter</a></li></ul>
+
+      
+        
+	<div id="comment">
+	
+	<!-- 多说评论框 start -->
+	 <div class="ds-thread" data-thread-key="/2022/04/10/jmeter/" data-title="性能测试工具Jmeter" data-url="http://example.com/2022/04/10/jmeter/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"iTimeTraveler"};
+	  (function() {
+	    var ds = document.createElement('script');
+	    ds.type = 'text/javascript';ds.async = true;
+	    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	    ds.charset = 'UTF-8';
+	    (document.getElementsByTagName('head')[0] 
+	     || document.getElementsByTagName('body')[0]).appendChild(ds);
+	  })();
+	  </script>
+	<!-- 多说公共JS代码 end -->
+	
+	</div>
+	
+<link rel="stylesheet" href="/css/comment.css">
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/04/10/linux/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          操作系统Linux
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/04/10/postman/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">接口测试工具Postman</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8"><span class="nav-number">1.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B9%E7%9B%AE%E5%BD%95%E8%AF%B4%E6%98%8E"><span class="nav-number">2.</span> <span class="nav-text">根目录说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E9%A1%B9%E7%9B%AE%E6%B5%8B%E8%AF%95%E8%84%9A%E6%9C%AC"><span class="nav-number">3.</span> <span class="nav-text">编写项目测试脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Jmeter%E5%81%9A%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95"><span class="nav-number">3.1.</span> <span class="nav-text">Jmeter做接口测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E7%BA%BF%E7%A8%8B%E7%BB%84"><span class="nav-number">3.2.</span> <span class="nav-text">添加线程组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%B5%8B%E8%AF%95%E6%8E%A5%E5%8F%A3"><span class="nav-number">3.3.</span> <span class="nav-text">添加测试接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%9F%A5%E7%9C%8B%E7%BB%93%E6%9E%9C%E6%95%B0"><span class="nav-number">3.4.</span> <span class="nav-text">添加查看结果数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E4%BF%A1%E6%81%AF%E5%A4%B4%E7%AE%A1%E7%90%86"><span class="nav-number">3.5.</span> <span class="nav-text">HTTP信息头管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Json%E6%96%AD%E8%A8%80"><span class="nav-number">3.6.</span> <span class="nav-text">Json断言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E8%81%94"><span class="nav-number">3.7.</span> <span class="nav-text">关联</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Json%E6%8F%90%E5%8F%96%E5%99%A8"><span class="nav-number">3.7.1.</span> <span class="nav-text">Json提取器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%8C%96"><span class="nav-number">3.8.</span> <span class="nav-text">参数化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E8%81%9A%E5%90%88%E6%8A%A5%E5%91%8A"><span class="nav-number">3.9.</span> <span class="nav-text">添加聚合报告</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95"><span class="nav-number">4.</span> <span class="nav-text">性能测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%9A%E5%90%88%E6%8A%A5%E5%91%8A"><span class="nav-number">4.1.</span> <span class="nav-text">聚合报告</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87"><span class="nav-number">4.1.1.</span> <span class="nav-text">性能指标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87%E9%87%8F%E5%8C%96"><span class="nav-number">4.1.2.</span> <span class="nav-text">性能指标量化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91"><span class="nav-number">4.2.</span> <span class="nav-text">并发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%B9%B6%E5%8F%91"><span class="nav-number">4.2.1.</span> <span class="nav-text">设置并发</span></a></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2022 “Amy的博客” All Rights Reserved.
+        
+            <span id="busuanzi_container_site_uv">
+              本站访客数<span id="busuanzi_value_site_uv"></span>人次  
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+            </span>
+          
+      </div>
+      <div class="site-credit">
+        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/bootstrap.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>
